@@ -46,7 +46,8 @@ function renderCountriesList(countries) {
         return `<li><div class="country-box"><img src=${
           country.flags.svg
         } alt="Flag of country" width="40">
-          <h1><b>${country.name.official}</b></h1></div>
+          <h1><b>${country.name.common}</b></h1></div>
+          <p><b>Official name </b>: ${country.name.official}</p>
           <p><b>Capital </b>: ${country.capital}</p>
           <p><b>Population</b>: ${country.population}</p>
           <p><b>Languages</b>: ${Object.values(country.languages)}</p></li>`;
@@ -57,7 +58,7 @@ function renderCountriesList(countries) {
     const markup = countries
       .map(country => {
         return `<div class="country-box"><img src=${country.flags.svg} alt="Flag of country" width="40">
-          <p><b>${country.name.official}</b></p></div>`;
+          <p><b>${country.name.common}</b></p></div>`;
       })
       .join('');
     countryList.innerHTML = markup;
