@@ -17,7 +17,7 @@ input.addEventListener('input', debounce(onSearchForm, DEBOUNCE_DELAY));
 
 function onSearchForm(e) {
   const searchQuery = e.target.value.trim(); // ========== метод trim()
-
+  clearCountryInfo();
   //   console.log(name);
   if (searchQuery === '') {
     // ======================================= нет запроса на путую строку
@@ -33,23 +33,40 @@ function onSearchForm(e) {
 }
 
 function renderCountriesList(countries) {
-  const markup = countries
-    .map(country => {
-      return `<li class="country-list__item"><img src=${
-        country.flags.svg
-      } alt="Flag of country" width="40">
-          <p><b>Name</b>: ${country.name.official}</p>
+  if (countries.length > 10) {
+    Notiflix.Notify.info(
+      'Too many matches found. Please enter a more specific name.'
+    );
+    return;
+  } else if (countries.length === 0) {
+    Notiflix.Notify.failure('Oops, there is no country with that name');
+  } else if (countries.length === 1) {
+    const markup = countries
+      .map(country => {
+        return `<li><div class="country-box"><img src=${
+          country.flags.svg
+        } alt="Flag of country" width="40">
+          <h1><b>${country.name.official}</b></h1></div>
           <p><b>Capital </b>: ${country.capital}</p>
           <p><b>Population</b>: ${country.population}</p>
           <p><b>Languages</b>: ${Object.values(country.languages)}</p></li>`;
-    })
-    .join('');
-  countryList.innerHTML = markup;
+      })
+      .join('');
+    countryInfo.innerHTML = markup;
+  } else if (countries.length > 2 && countries.length < 10) {
+    const markup = countries
+      .map(country => {
+        return `<div class="country-box"><img src=${country.flags.svg} alt="Flag of country" width="40">
+          <p><b>${country.name.official}</b></p></div>`;
+      })
+      .join('');
+    countryList.innerHTML = markup;
+  }
 }
 
-{
-  /* <ul class="country-list"></ul>
-    <div class="country-info"></div> */
+function clearCountryInfo() {
+  countryList.innerHTML = '';
+  countryInfo.innerHTML = '';
 }
 
 // copypasta
