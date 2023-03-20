@@ -1,5 +1,5 @@
 import './css/styles.css';
-import fetchCountries from './partials/fetchCountries';
+import fetchCountries from './js/fetchCountries';
 import Notiflix from 'notiflix';
 
 const refs = {
