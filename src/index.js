@@ -70,8 +70,5 @@ function clearCountryInfo() {
   countryInfo.innerHTML = '';
 }
 
-// copypasta
-// ukraine
-
 // Notiflix.Notify.failure("Oops, there is no country with that name");
 // Notiflix.Notify.info("Too many matches found. Please enter a more specific name.");
