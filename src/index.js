@@ -2,7 +2,7 @@ import './css/styles.css';
 import fetchCountries from './partials/fetchCountries';
 import Notiflix from 'notiflix';
 
-refs = {
+const refs = {
   input: document.querySelector('input#search-box'),
   countryList: document.querySelector('.country-list'),
   countryInfo: document.querySelector('.country-info'),
