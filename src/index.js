@@ -9,6 +9,7 @@ refs = {
 };
 
 const { input, countryList, countryInfo } = refs;
+console.log(refs);
 
 const DEBOUNCE_DELAY = 300;
 const debounce = require('lodash.debounce');
@@ -40,7 +41,16 @@ function renderCountriesList(countries) {
     return;
   } else if (countries.length === 0) {
     Notiflix.Notify.failure('Oops, there is no country with that name');
+  } else if (countries.length > 2 && countries.length < 10) {
+    const markup = countries
+      .map(country => {
+        return `<div class="country-box"><img src=${country.flags.svg} alt="Flag of country" width="40">
+          <p><b>${country.name.common}</b></p></div>`;
+      })
+      .join('');
+    countryList.innerHTML = markup;
   } else if (countries.length === 1) {
+    clearCountryInfo();
     const markup = countries
       .map(country => {
         return `<li><div class="country-box"><img src=${
@@ -54,14 +64,6 @@ function renderCountriesList(countries) {
       })
       .join('');
     countryInfo.innerHTML = markup;
-  } else if (countries.length > 2 && countries.length < 10) {
-    const markup = countries
-      .map(country => {
-        return `<div class="country-box"><img src=${country.flags.svg} alt="Flag of country" width="40">
-          <p><b>${country.name.common}</b></p></div>`;
-      })
-      .join('');
-    countryList.innerHTML = markup;
   }
 }
 
